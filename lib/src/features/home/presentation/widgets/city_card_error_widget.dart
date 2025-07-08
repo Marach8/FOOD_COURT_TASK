@@ -23,13 +23,18 @@ class CityCardErrorWidget extends StatelessWidget {
             ),
           ),
         ),
+
         Center(
           child: FCRefreshWidget(
-            onPressed: () => context.ref.read(eachCityProvider(city.id).notifier)
-            .fetchCityWeatherDetails(latitude: city.latitude, longitude: city.longitude),
+            onPressed: (){
+              context.ref.read(eachCityProvider(city.id).notifier)
+                .fetchCityWeatherDetails(latitude: city.latitude, longitude: city.longitude);
+            }
           ),
         )
       ],
     );
   }
 }
+
+

@@ -13,13 +13,13 @@
 //       return handler.next(options);
 //     }
 
-//     final String? accessToken = await _ref.read(storageProvider).get(CSIStrings.ACCESS_TOKEN);
+//     final String? accessToken = await _ref.read(storageProvider).get(FCStrings.ACCESS_TOKEN);
 //     if(accessToken == null){
 //       return handler.reject(
 //         DioException(
 //           requestOptions: options,
 //           type: DioExceptionType.cancel,
-//           message: CSIStrings.SESSION_EXPIRED,
+//           message: FCStrings.SESSION_EXPIRED,
 //         ),
 //       );
 //     }
@@ -67,7 +67,7 @@
 //     _isRefreshing = true;
 
 //     try {
-//       final refreshToken = await ref.read(storageProvider).get(CSIStrings.REFRESH_TOKEN);
+//       final refreshToken = await ref.read(storageProvider).get(FCStrings.REFRESH_TOKEN);
 //       log(refreshToken.toString());
 //       if (refreshToken == null) {        
 //         return handler.next(err);
@@ -93,7 +93,7 @@
 //     ErrorInterceptorHandler handler,
 //   ) async {
 //     try {
-//       final newToken = await ref.read(storageProvider).get(CSIStrings.ACCESS_TOKEN);
+//       final newToken = await ref.read(storageProvider).get(FCStrings.ACCESS_TOKEN);
 
 //       final options = Options(
 //         method: requestOptions.method,
@@ -121,14 +121,14 @@
 //   Future<String?> _refreshToken(String refreshToken) async {
 //     try {
 //       final response = await dio.post(
-//         CSIEndpoints.BASE_URL + CSIEndpoints.REFRESH_TOKEN,
+//         FCEndpoints.BASE_URL + FCEndpoints.REFRESH_TOKEN,
 //         data: {'refreshToken': refreshToken},
 //       );
 
 //       final newAccessToken = response.data['data']['access_token'] as String?;
 
 //       await ref.read(storageProvider).set(
-//         CSIStrings.ACCESS_TOKEN, newAccessToken
+//         FCStrings.ACCESS_TOKEN, newAccessToken
 //       );
 
 //       return newAccessToken;

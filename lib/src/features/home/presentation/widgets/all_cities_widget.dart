@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import '../../../../global_export.dart';
 
-Future<bool?> showAllCitiesForSelection(BuildContext context) async {
+Future<bool?> showAllCitiesForSelection(BuildContext context){
   return showModalBottomSheet<bool>(
     context: context,
     isScrollControlled: true,
@@ -36,13 +36,17 @@ Future<bool?> showAllCitiesForSelection(BuildContext context) async {
                       Initial<List<City>>() || Loading<List<City>>() => const Center(child: FCLoadingIndicator()),
                       Failure<List<City>>(message: _) => const Icon(Icons.refresh),
                       Success<List<City>>(data: final List<City> cities) => Expanded(
-                        child: ListView.builder(
-                          controller: scrollController,
-                          itemCount: cities.length,
-                          itemBuilder: (_, int index){
-                            final City city = cities.elementAt(index);
-                            return _RenderCity(city: city);
-                          },
+                        child: FCScrollBar(
+                          scrollController: scrollController,
+                          child: ListView.builder(
+                            controller: scrollController,
+                            padding: const EdgeInsets.only(right: 20),
+                            itemCount: cities.length,
+                            itemBuilder: (_, int index){
+                              final City city = cities.elementAt(index);
+                              return _RenderCity(city: city);
+                            },
+                          ),
                         ),
                       )
                     },
@@ -110,7 +114,7 @@ class _RenderCity extends StatelessWidget {
                   else{
                     ref.read(selectedCitiesProvider.notifier).addCity(city: city, shouldCache: true);
                   }
-                  ref.read(eachCityProvider(city.id).notifier).isCitySelected(
+                  ref.read(eachCityProvider(city.id).notifier).isASelectedCity(
                     isSelected ? false : true
                   );
                 },

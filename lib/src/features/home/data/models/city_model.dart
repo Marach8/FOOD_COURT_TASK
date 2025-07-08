@@ -35,7 +35,7 @@ class City {
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       weatherData: weatherData ?? this.weatherData,
-      isCurrentLocation: isSelected ?? this.isCurrentLocation,
+      isCurrentLocation: isSelected ?? isCurrentLocation,
     );
   }
 

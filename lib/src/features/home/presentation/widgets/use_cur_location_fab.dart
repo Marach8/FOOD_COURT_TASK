@@ -1,3 +1,4 @@
+import 'dart:async' show unawaited;
 import 'package:flutter/cupertino.dart' show CupertinoIcons;
 import '../../../../global_export.dart';
 
@@ -38,7 +39,9 @@ class _UseCurrentLocationFABState extends ConsumerState<UseCurrentLocationFAB> {
             onPressed: isLoading ? null : ()async{
               final (double?, double?, String?) result = await FCHelperFuncs.getCurrentLocation();
               if(context.mounted && result.$3 != null){
-                showAppNotification(context: context, text: result.$3!, isSuccess: false);
+                unawaited(
+                  showAppNotification(context: context, text: result.$3!, isSuccess: false)
+                );
               }
               if(result.$1 != null && result.$2 != null){
                 await ref.read(eachCityProvider(currentCityId).notifier).fetchCityWeatherDetails(
@@ -59,9 +62,11 @@ class _UseCurrentLocationFABState extends ConsumerState<UseCurrentLocationFAB> {
                   final int indexOfCurCity = await ref.read(selectedCitiesProvider.notifier)
                     .addCity(city: currentCity);
                   await Future<void>.delayed(const Duration(seconds: 1));
-                  ref.read(carouselCntrlProvider).animateToPage(
-                    indexOfCurCity, curve: Curves.decelerate,
-                    duration: const Duration(milliseconds: 500),
+                  unawaited(
+                    ref.read(carouselCntrlProvider).animateToPage(
+                      indexOfCurCity, curve: Curves.decelerate,
+                      duration: const Duration(milliseconds: 500),
+                    )
                   );
                 }
               }

@@ -1,3 +1,4 @@
+
 import '../../../global_export.dart';
 
 final StateNotifierProviderFamily<EachCityNotifier, (FCApiState<WeatherResponseModel?>, bool), int> 
@@ -9,7 +10,7 @@ final StateNotifierProviderFamily<EachCityNotifier, (FCApiState<WeatherResponseM
       orElse: () => const City(id: 100, latitude: 0, longitude: 0, name: ''),
     );
     return EachCityNotifier(
-      ref, cityId, currCity.isCurrentLocation,
+      ref, cityId,
       FCApiState<WeatherResponseModel?>.success(currCity.weatherData)
     );
   }
@@ -20,11 +21,10 @@ class EachCityNotifier extends StateNotifier<(FCApiState<WeatherResponseModel?>,
   EachCityNotifier(
     this.ref, 
     this.cityId,
-    bool? isSelected,
     FCApiState<WeatherResponseModel?> cityState,
   ): 
   _homeRepo = ref.read(homeRepoImplProvider),
-  super((cityState, isSelected ?? false));
+  super((cityState, false));
 
   final Ref ref;
   final int cityId;
@@ -36,7 +36,7 @@ class EachCityNotifier extends StateNotifier<(FCApiState<WeatherResponseModel?>,
     _ => null,
   };
 
-  void isCitySelected(bool status) => state = (state.$1, status);
+  void isASelectedCity(bool status) => state = (state.$1, status);
 
 
   Future<void> fetchCityWeatherDetails({
@@ -47,7 +47,7 @@ class EachCityNotifier extends StateNotifier<(FCApiState<WeatherResponseModel?>,
     state = (FCApiState<WeatherResponseModel?>.loading(), state.$2);
 
     try{
-      final ApiResponse<WeatherResponseModel> response = await _homeRepo.fetchWeatherByCoordinates(
+      final ApiResponse<WeatherResponseModel> response = await _homeRepo.fetchWeatherDetails(
         latitude: latitude, longitude: longitude
       );
 

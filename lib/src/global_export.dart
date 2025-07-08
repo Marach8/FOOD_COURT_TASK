@@ -6,4 +6,3 @@ export 'config/api_response.dart';
 export 'config/services/services_export.dart';
 export 'config/config_export.dart';
 
-import 'dart:developer' show log;

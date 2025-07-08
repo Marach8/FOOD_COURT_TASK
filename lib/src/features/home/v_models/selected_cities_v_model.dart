@@ -39,7 +39,7 @@ class SelectedCitiesNotifier extends StateNotifier<FCApiState<List<City>>> {
           }
 
           for(City city in initialCities){
-            ref.read(eachCityProvider(city.id).notifier).isCitySelected(true);
+            ref.read(eachCityProvider(city.id).notifier).isASelectedCity(true);
             unawaited(
               ref.read(eachCityProvider(city.id).notifier).fetchCityWeatherDetails(
                 latitude: city.latitude, longitude: city.longitude
@@ -85,6 +85,8 @@ class SelectedCitiesNotifier extends StateNotifier<FCApiState<List<City>>> {
       await _addCityId2Cache(city.id);
     }
 
+    ref.read(eachCityProvider(city.id).notifier).isASelectedCity(true);
+    
     final List<City> newCities = List<City>.from(currentCities)..add(city);
     state = FCApiState<List<City>>.success(newCities);
 
@@ -103,6 +105,7 @@ class SelectedCitiesNotifier extends StateNotifier<FCApiState<List<City>>> {
   Future<void> removeCity(int id)async{
     final List<City> currentCities = getSelectedCities();
     await _removeCityId4rmCache(id);
+    ref.read(eachCityProvider(id).notifier).isASelectedCity(false);
 
     if(currentCities.length > 1){
       final List<City> newCities = currentCities.where((City city) => city.id != id).toList();

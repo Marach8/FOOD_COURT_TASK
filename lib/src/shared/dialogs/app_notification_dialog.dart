@@ -7,7 +7,7 @@ Future<dynamic> showAppNotification({
   required String text,
   required bool isSuccess,
   int? duration,
-}) async {
+}) {
   late Flushbar<dynamic> flushbar;
 
   flushbar = Flushbar<dynamic>(

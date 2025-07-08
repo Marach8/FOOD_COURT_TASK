@@ -53,7 +53,7 @@ void main() {
         )
       ).thenAnswer((_) async {});
 
-      when(() => mockCityNotifier.isCitySelected(any())).thenReturn(null);
+      when(() => mockCityNotifier.isASelectedCity(any())).thenReturn(null);
 
       when(
         () => mockRef.listen<FCApiState<List<City>>>(
@@ -108,8 +108,10 @@ void main() {
           await notifier.addCity(city: testCity);
           
           await notifier.removeCity(testCity.id);
-          expect((notifier.state as Success<List<City>>).data, 
-                 isNot(contains(testCity)));
+          expect(
+            (notifier.state as Success<List<City>>).data, 
+            isNot(contains(testCity))
+          );
         }
       );
 
@@ -128,6 +130,16 @@ void main() {
   group(
     'Caching Operations inside SelectedCityNotifier',
     () {
+      setUp(
+        (){
+          when(
+            () => mockStorage.getObject<List<dynamic>>(any())
+          ).thenAnswer((_) async => <int>[]);
+
+          notifier = SelectedCitiesNotifier(mockRef);
+        }
+      );
+      
       test(
         'Adding a city with shouldCache=true successfully saves to storage and updates the state',
         () async {

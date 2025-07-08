@@ -6,3 +6,4 @@ export 'shimmer.dart';
 export 'loading_indicator.dart';
 export 'dialogs/confirm_action_dialog.dart';
 export 'divider_widget.dart';
+export 'scrollbar.dart';

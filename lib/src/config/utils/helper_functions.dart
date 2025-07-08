@@ -58,7 +58,8 @@ class FCHelperFuncs{
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return (null, null, FCStrings.ENABLE_LOCATION);
+      await Geolocator.openLocationSettings();
+      return (null, null, null);
     }
 
     try {

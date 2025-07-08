@@ -5,7 +5,7 @@ abstract class HomeRepo {
   
   //Future<ApiResponse<dynamic>> getWeatherResponseModelByCity(String cityName);
   
-  Future<ApiResponse<WeatherResponseModel>> fetchWeatherByCoordinates({
+  Future<ApiResponse<WeatherResponseModel>> fetchWeatherDetails({
     required double latitude,
     required double longitude,
   });

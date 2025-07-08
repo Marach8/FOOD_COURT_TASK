@@ -36,7 +36,7 @@ Future<bool?> confirmActionDialog({
               ),
             ),
           ),
-          const AfriDivider(),
+          const FCDivider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -49,7 +49,7 @@ Future<bool?> confirmActionDialog({
                   ),
                 ),
               ),
-              const AfriDivider(axis: AxisType.vertical, height: 50),
+              const FCDivider(axis: AxisType.vertical, height: 50),
               GestureDetector(
                 onTap: () => Navigator.pop(context, false),
                 child: Text(

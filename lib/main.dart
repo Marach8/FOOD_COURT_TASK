@@ -1,7 +1,7 @@
-import 'package:device_preview/device_preview.dart' show DevicePreview;
+
 import 'src/global_export.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   // runApp(

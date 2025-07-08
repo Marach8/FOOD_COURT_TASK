@@ -36,7 +36,8 @@ class CityWeatherCardWidget extends ConsumerWidget {
           offset: const Offset(0, 5),
         ),
       ],
-      child: hasError ? CityCardErrorWidget(city: city) : SingleChildScrollView(
+      child: hasError ? CityCardErrorWidget(city: city,) 
+      : SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(15),
         child: Column(
